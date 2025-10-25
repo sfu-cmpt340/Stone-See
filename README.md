@@ -1,4 +1,4 @@
-# SFU CMPT 340 Project Template -- Replace with project title
+# SFU CMPT 340 Kidney Net
 This repository is a template for your CMPT 340 course project.
 Replace the title with your project title, and **add a snappy acronym that people remember (mnemonic)**.
 
@@ -6,7 +6,7 @@ Add a 1-2 line summary of your project here.
 
 ## Important Links
 
-| [Timesheet](https://google.com) | [Slack channel](https://app.slack.com/client/T09CPAEDU21/C09F1MB238V) | [Project report](https://www.overleaf.com/read/ghbrwzfmcpqb#f2816c) |
+| [Timesheet](https://www.overleaf.com/project/68c647009c2695d04735951f) | [Slack channel](https://app.slack.com/client/T09CPAEDU21/C09F1MB238V) | [Project report](https://www.overleaf.com/project/68c647009c2695d04735951f) |
 |-----------|---------------|-------------------------|
 
 
