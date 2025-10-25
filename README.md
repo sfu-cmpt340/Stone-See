@@ -6,7 +6,7 @@ Add a 1-2 line summary of your project here.
 
 ## Important Links
 
-| [Timesheet](https://google.com) | [Slack channel](https://google.com) | [Project report](https://google.com) |
+| [Timesheet](https://google.com) | [Slack channel](https://app.slack.com/client/T09CPAEDU21/C09F1MB238V) | [Project report](https://www.overleaf.com/read/ghbrwzfmcpqb#f2816c) |
 |-----------|---------------|-------------------------|
 
 
