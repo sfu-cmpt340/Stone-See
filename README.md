@@ -1,8 +1,5 @@
-# SFU CMPT 340 Kidney Net
-This repository is a template for your CMPT 340 course project.
-Replace the title with your project title, and **add a snappy acronym that people remember (mnemonic)**.
-
-STONE-SEE is a deep learning-powered system designed to automatically detect kidney stones from CT scan images, delivering accurate and efficient diagnostic support for healthcare professionals.
+# STONE-SEE
+STONE-SEE is a deep learning-powered system designed to automatically detect kidney stones from CT scan images, delivering accurate and efficient diagnostic support for healthcare professionals
 
 ## Important Links
 
@@ -45,6 +42,7 @@ for img in imgs:
 
 Explain briefly what files are found where
 
+```bash
 repository
 ├── data                          ## Contains all data-related files
 │   ├── raw/                      ## Raw data: original CT scans
@@ -68,6 +66,7 @@ repository
 ├── README.md                     ## Project overview, setup instructions, and more
 ├── requirements.yml              ## Dependencies for the project (if using conda)
 └── .gitignore                    ## List of files to ignore in Git (e.g., .DS_Store)
+```
 
 <a name="installation"></a>
 
