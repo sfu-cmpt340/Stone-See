@@ -38,6 +38,13 @@ for img in imgs:
     view(img)
 ```
 
+## Dataset
+
+The dataset for this project is hosted on **Google Drive**. You can download the files from the following link:
+
+[Download the dataset from Google Drive](https://drive.google.com/drive/folders/1_Y6ztdLwIZyF-MBIQhiXoS-TEXul6EIK?usp=drive_link)
+
+
 ### What to find where
 
 Explain briefly what files are found where
