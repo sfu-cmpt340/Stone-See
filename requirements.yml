@@ -1,0 +1,12 @@
+name: kidneynet
+dependencies:
+  - python=3.10
+  - pip:
+      - tensorflow-macos
+      - tensorflow-metal
+      - opencv-python
+      - numpy
+      - pandas
+      - scikit-learn
+      - matplotlib
+      - seaborn
