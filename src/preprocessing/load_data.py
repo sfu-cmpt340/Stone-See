@@ -1,6 +1,5 @@
 # src/preprocessing/load_data.py
 from torchvision import datasets, transforms
-<<<<<<< HEAD
 from torch.utils.data import DataLoader, random_split, ConcatDataset
 import os
 
@@ -103,17 +102,11 @@ def load_combined_kidney_data(augmented_dir="data/Augmented_Dataset",
     return train_loader, val_loader, test_loader
 
 def load_kidney_data(data_dir="data", image_size=224, batch_size=128, val_split=0.2):
-=======
-from torch.utils.data import DataLoader, random_split
-
-def load_kidney_data(data_dir="data", image_size=224, batch_size=64, val_split=0.2):
->>>>>>> bb81204f4bae432736718559d00cea9bb8fa47e8
     """
     Just read everything under data/ (Stone / Non-Stone subfolders),
     split into train/val/test, and return DataLoaders.
     """
 
-<<<<<<< HEAD
     # Training transform with augmentation (helps model work on original data too)
     train_transform = transforms.Compose([
         transforms.Resize((image_size, image_size)),
@@ -126,16 +119,12 @@ def load_kidney_data(data_dir="data", image_size=224, batch_size=64, val_split=0
     
     # Validation/Test transform (no augmentation)
     val_transform = transforms.Compose([
-=======
-    transform = transforms.Compose([
->>>>>>> bb81204f4bae432736718559d00cea9bb8fa47e8
         transforms.Resize((image_size, image_size)),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406],
                              std=[0.229, 0.224, 0.225]),
     ])
 
-<<<<<<< HEAD
     # Load dataset without transform first (we'll apply transforms separately)
     full_dataset = datasets.ImageFolder(root=data_dir, transform=None)
 
@@ -170,16 +159,6 @@ def load_kidney_data(data_dir="data", image_size=224, batch_size=64, val_split=0
     train_ds = TransformDataset(full_dataset, train_indices, train_transform)
     val_ds = TransformDataset(full_dataset, val_indices, val_transform)
     test_ds = TransformDataset(full_dataset, test_indices, val_transform)
-=======
-    dataset = datasets.ImageFolder(root=data_dir, transform=transform)
-
-    # simple random split
-    total = len(dataset)
-    val_size = int(total * val_split)
-    test_size = val_size
-    train_size = total - val_size - test_size
-    train_ds, val_ds, test_ds = random_split(dataset, [train_size, val_size, test_size])
->>>>>>> bb81204f4bae432736718559d00cea9bb8fa47e8
 
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
     val_loader   = DataLoader(val_ds, batch_size=batch_size)
