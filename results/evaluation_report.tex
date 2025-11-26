@@ -1,0 +1,96 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\title{Kidney Stone Detection Model - Evaluation Report}
+\author{KidneyNet Project}
+\date{November 23, 2025}
+
+\begin{document}
+\maketitle
+
+\section{Model Information}
+\begin{itemize}
+\item \textbf{Model Architecture:} ResNet-18
+\item \textbf{Task:} Binary Classification (Kidney Stone Detection)
+\item \textbf{Classes:} Non-Stone, Stone
+\end{itemize}
+
+\section{Training Information}
+\begin{itemize}
+\item \textbf{Total Epochs:} 5
+\item \textbf{Best Validation Accuracy:} 91.51%
+\item \textbf{Final Training Accuracy:} 99.36%
+\item \textbf{Final Validation Accuracy:} 90.71%
+\end{itemize}
+
+\section{Overall Performance Metrics}
+\begin{table}[H]
+\centering
+\begin{tabular}{lr}
+\toprule
+Metric & Value \\
+\midrule
+Accuracy & 96.43% \\
+Precision & 96.47% \\
+Recall & 96.43% \\
+F1-Score & 96.43% \\
+ROC-AUC & 0.994 \\
+\bottomrule
+\end{tabular}
+\caption{Overall Performance Metrics}
+\end{table}
+
+\section{Per-Class Performance Metrics}
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Class & Precision & Recall & F1-Score \\
+\midrule
+Non-Stone & 95.27% & 98.21% & 96.72% \\
+Stone & 97.86% & 94.38% & 96.09% \\
+\bottomrule
+\end{tabular}
+\caption{Per-Class Performance Metrics}
+\end{table}
+
+\section{Confusion Matrix}
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\toprule
+ & \multicolumn{2}{c}{Predicted} \\
+\cmidrule(lr){2-3}
+True & Non-Stone & Stone \\
+\midrule
+Non-Stone & 3729 & 68 \\
+Stone & 185 & 3109 \\
+\bottomrule
+\end{tabular}
+\caption{Confusion Matrix}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{results/figures/confusion_matrix.png}
+\caption{Confusion Matrix Visualization}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{results/figures/roc_curve.png}
+\caption{ROC Curve}
+\end{figure}
+
+\section{Interpretation}
+\begin{itemize}
+\item The model achieved an overall accuracy of 96.43% on the test set.
+\item The F1-score of 96.43% indicates a good balance between precision and recall.
+\item The ROC-AUC score of 0.994 demonstrates the model's ability to distinguish between classes.
+\end{itemize}
+
+\end{document}

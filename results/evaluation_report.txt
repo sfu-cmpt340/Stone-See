@@ -1,0 +1,56 @@
+================================================================================
+                Kidney Stone Detection Model - Evaluation Report                
+================================================================================
+
+Generated on: November 23, 2025 at 16:11:55
+
+MODEL INFORMATION
+--------------------------------------------------------------------------------
+Model Architecture: ResNet-18
+Task: Binary Classification (Kidney Stone Detection)
+Classes: Non-Stone, Stone
+
+TRAINING INFORMATION
+--------------------------------------------------------------------------------
+Total Epochs: 5
+Best Validation Accuracy: 91.51%
+Final Training Accuracy: 99.36%
+Final Validation Accuracy: 90.71%
+
+OVERALL PERFORMANCE METRICS
+--------------------------------------------------------------------------------
+Accuracy:  96.43%
+Precision: 96.47%
+Recall:    96.43%
+F1-Score:  96.43%
+ROC-AUC:   0.994
+
+PER-CLASS PERFORMANCE METRICS
+--------------------------------------------------------------------------------
+
+Non-Stone:
+  Precision: 95.27%
+  Recall:    98.21%
+  F1-Score:  96.72%
+
+Stone:
+  Precision: 97.86%
+  Recall:    94.38%
+  F1-Score:  96.09%
+
+CONFUSION MATRIX
+--------------------------------------------------------------------------------
+                    Predicted
+                  Non-Stone       Stone          
+True Non-Stone       3729            68             
+True Stone           185             3109           
+
+INTERPRETATION
+--------------------------------------------------------------------------------
+The model achieved an overall accuracy of 96.43% on the test set.
+The F1-score of 96.43% indicates a good balance between precision and recall.
+The ROC-AUC score of 0.994 demonstrates the model's ability to distinguish between classes.
+
+================================================================================
+End of Report
+================================================================================

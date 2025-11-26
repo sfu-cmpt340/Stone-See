@@ -1,0 +1,14 @@
+name: kidneynet
+dependencies:
+  - python=3.13
+  - pip:
+      - torch
+      - torchvision
+      - torchaudio
+      - numpy
+      - pandas
+      - scikit-learn
+      - matplotlib
+      - seaborn
+      - opencv-python
+      - tqdm

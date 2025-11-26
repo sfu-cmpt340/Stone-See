@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KidneyNet - Kidney Stone Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .upload-area {
+            border: 3px dashed #2a5298;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            background: #f0f7ff;
+            margin-bottom: 20px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .upload-btn {
+            background: #2a5298;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.4);
+        }
+
+        .preview {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .preview img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid #2a5298;
+        }
+
+        .analyze-btn {
+            width: 100%;
+            background: #2a5298;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .analyze-btn:hover:not(:disabled) {
+            background: #1e3c72;
+            transform: translateY(-2px);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .result.stone {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border-left: 5px solid #ff9800;
+        }
+
+        .result.no-stone {
+            background: linear-gradient(135deg, #d1f2eb 0%, #a3e4d7 100%);
+            border-left: 5px solid #28a745;
+        }
+
+        .result h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .confidence {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #c33;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #2a5298;
+            font-weight: 600;
+        }
+
+        .probabilities {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .prob-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prob-fill {
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 600;
+            transition: width 0.5s;
+        }
+
+        .prob-fill.stone {
+            background: linear-gradient(90deg, #ff9800, #ff6b00);
+        }
+
+        .prob-fill.no-stone {
+            background: linear-gradient(90deg, #28a745, #20c997);
+        }
+
+        .prob-label {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 KidneyNet</h1>
+        <p class="subtitle">Kidney Stone Detection System</p>
+
+        <div class="upload-area">
+            <input type="file" id="fileInput" accept="image/*">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                📁 Choose CT Scan Image
+            </button>
+            <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                Supported: JPG, PNG, JPEG
+            </p>
+        </div>
+
+        <div id="preview" class="preview" style="display: none;">
+            <img id="previewImage" src="" alt="Preview">
+        </div>
+
+        <button class="analyze-btn" id="analyzeBtn" onclick="analyzeImage()" disabled>
+            🔍 Analyze Image
+        </button>
+
+        <div id="loading" class="loading" style="display: none;">
+            ⏳ Analyzing CT scan...
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+        let selectedFile = null;
+
+        // Handle file selection
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                selectedFile = file;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('preview').style.display = 'block';
+                    document.getElementById('analyzeBtn').disabled = false;
+                    document.getElementById('result').style.display = 'none';
+                    document.getElementById('error').style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Analyze image
+        async function analyzeImage() {
+            if (!selectedFile) {
+                showError('Please select an image first');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+
+            try {
+                const formData = new FormData();
+                formData.append('image', selectedFile);
+
+                const response = await fetch(`${API_URL}/predict`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Prediction failed');
+                }
+
+                showResult(data);
+            } catch (error) {
+                showError(error.message || 'Something went wrong. Please try again.');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+            }
+        }
+
+        // Show result
+        function showResult(data) {
+            const resultDiv = document.getElementById('result');
+            const isStone = data.prediction === 'Stone';
+            
+            resultDiv.className = 'result ' + (isStone ? 'stone' : 'no-stone');
+            resultDiv.innerHTML = `
+                <h2>${isStone ? '🟡 Kidney Stone Detected' : '✅ No Kidney Stone'}</h2>
+                <div class="confidence">Confidence: ${data.confidence}%</div>
+                <div class="probabilities">
+                    <div class="prob-bar">
+                        <div class="prob-label">Non-Stone</div>
+                        <div class="prob-fill no-stone" style="width: ${data.probabilities['Non-Stone']}%">
+                            ${data.probabilities['Non-Stone']}%
+                        </div>
+                    </div>
+                    <div class="prob-bar">
+                        <div class="prob-label">Stone</div>
+                        <div class="prob-fill stone" style="width: ${data.probabilities['Stone']}%">
+                            ${data.probabilities['Stone']}%
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Show error
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = '⚠️ ' + message;
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
