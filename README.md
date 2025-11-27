@@ -102,6 +102,69 @@ python evaluate.py --epochs=10 --data=/in/put/dir
 Data can be found at ...
 Output will be saved in ...
 
+## 5. Running the Web Application (Cross-Platform)
+
+The project includes a cross-platform runner that works on **Windows, macOS, and Linux**.
+
+### Prerequisites
+- Python 3.7 or higher
+- Node.js and npm (for frontend)
+- All Python dependencies installed (`pip install -r requirements.txt`)
+
+### Quick Start
+
+**Windows:**
+```batch
+run.bat
+```
+Or:
+```batch
+python run.py
+```
+
+**macOS/Linux:**
+```bash
+python3 run.py
+```
+Or make it executable:
+```bash
+chmod +x run.py
+./run.py
+```
+
+### What the Runner Does
+
+1. **Checks dependencies** - Verifies Python, Node.js, and required files
+2. **Stops existing servers** - Kills any processes on ports 5000 and 3000
+3. **Starts backend** - Launches Flask API server on http://localhost:5000
+4. **Starts frontend** - Launches Next.js dev server on http://localhost:3000
+5. **Opens browser** - Automatically opens the web interface
+6. **Handles cleanup** - Properly stops servers when you press Ctrl+C
+
+### Manual Start (Alternative)
+
+If you prefer to start servers manually:
+
+**Backend:**
+```bash
+cd backend
+python app.py
+```
+
+**Frontend (in a new terminal):**
+```bash
+cd frontend
+npm install  # First time only
+npm run dev
+```
+
+### Troubleshooting
+
+- **Port already in use**: The runner will try to kill existing processes, but you may need to manually stop them
+- **Backend fails to start**: Check `logs/backend.log` and ensure all Python dependencies are installed
+- **Frontend fails to start**: Check `logs/frontend.log` and ensure Node.js is installed and `npm install` has been run
+- **Model not found**: Make sure you've trained the model first (see training instructions)
+
 <a name="guide"></a>
 ## 4. Guidance
 
