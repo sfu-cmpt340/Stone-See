@@ -93,14 +93,29 @@ conda activate amazing
 ## 3. Reproduction
 Demonstrate how your work can be reproduced, e.g. the results in your report.
 ```bash
-mkdir tmp && cd tmp
-wget https://yourstorageisourbusiness.com/dataset.zip
-unzip dataset.zip
-conda activate amazing
-python evaluate.py --epochs=10 --data=/in/put/dir
+# Download dataset from Google Drive and place in data/ directory
+# Dataset structure: data/Augmented_Dataset/ and data/Original_Dataset/
+
+# Activate conda environment
+conda activate kidneynet
+
+# Train the model
+python src/models/train_model.py
+
+# Evaluate the model
+python src/evaluation/evaluate_model.py
+
+# Compare datasets (optional)
+python src/evaluation/compare_datasets.py
+
+# Generate evaluation report
+python src/evaluation/generate_report.py
+
+# Run the web application with the trained model
+python run.py
 ```
-Data can be found at ...
-Output will be saved in ...
+Data can be found at [Google Drive](https://drive.google.com/drive/folders/1_Y6ztdLwIZyF-MBIQhiXoS-TEXul6EIK?usp=drive_link). Download and extract to the `data/` directory with subdirectories `Augmented_Dataset/` and `Original_Dataset/`, each containing `Stone/` and `Non-Stone/` folders.
+Output will be saved in `results/` directory: trained models in `results/models/`, evaluation metrics in `results/evaluation_metrics.json`, and visualizations in `results/figures/`. After training, you can run `python run.py` to start the web application which will use the trained model for predictions.
 
 ## 5. Running the Web Application (Cross-Platform)
 
